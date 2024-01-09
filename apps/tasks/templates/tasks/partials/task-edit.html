@@ -1,0 +1,25 @@
+{% load crispy_forms_tags %}
+
+<div id="task-edit-form" hx-target="this" hx-swap="outerHTML">
+    <form>
+        {% csrf_token %}
+        <div class="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4 border-l-transparent">
+            {% crispy form %}        
+    
+            <button
+                class="btn btn-success btn-sm btn-outline flex-no-shrink ml-5 mr-3"
+                hx-post="{% url 'tasks:task-edit' id=form.instance.id %}"
+            >
+                Submit
+            </button>
+            <button
+                class="btn btn-sm btn-outline btn-error flex-no-shrink"
+                hx-get="{% url 'tasks:task-detail' id=form.instance.id %}"
+            >
+                Cancel
+            <button>
+            
+            {% if form.name.errors %}<i>{{ form.name.errors }}</i>{% endif %}
+        </div>
+    </form>
+</div>

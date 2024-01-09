@@ -1,0 +1,49 @@
+version: '3'
+
+volumes:
+  database: {}
+  staticfiles: {}
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/django/dev/Dockerfile
+      args:
+        DJANGO_ENV: development
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/.venv/
+      - /app/theme/static/theme
+      - staticfiles:/app/theme/static/theme:ro
+    env_file:
+      - ./.env
+    ports:
+      - "8000:8000"
+    
+    # command: "pdm run python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    build:
+      dockerfile: ./docker/frontend/dev/Dockerfile
+      context: .
+    volumes:
+      - ./theme:/app/theme
+      - /app/node_modules
+      - /app/theme/static/theme
+      - staticfiles:/app/theme/static/theme
+
+  postgres:
+    image: "postgres"
+    volumes:
+      - database:/var/lib/postgresql/data:Z
+    env_file:
+      - ./.env
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

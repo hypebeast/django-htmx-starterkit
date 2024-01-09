@@ -1,0 +1,33 @@
+<div hx-target="this" hx-swap="outerHTML">
+    <div class="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4 border-l-transparent">
+        <form>
+            {% csrf_token %}
+            <input
+                type="checkbox"
+                name="completed"
+                {% if task.is_completed %} checked {% endif %}
+                class="checkbox mr-3"
+                hx-post="{% url 'tasks:task-toggle' id=task.id %}"
+            />
+        </form>
+
+        <div class="w-full text-slate-500 {% if task.is_completed %} line-through {% endif %}">{{ task.name }}</div>
+        <button
+            class="btn btn-sm btn-outline flex-no-shrink mr-3 {% if task.is_completed %} hidden {% endif %}"
+            hx-get="{% url 'tasks:task-edit' id=task.id %}"
+        >
+            Edit
+        </button>
+        <form>
+            {% csrf_token %}
+            <button
+                class="btn btn-sm btn-outline btn-error flex-no-shrink"
+                hx-post="{% url 'tasks:task-delete' id=task.id %}"
+                hx-confirm="Are you sure?"
+            >
+                Remove
+            </button>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+[project]
+name = "django-htmx-starterkit"
+version = "0.0.1"
+description = "A simple, but scalable starterkit for Django"
+authors = [{ name = "Sebastian Ruml", email = "sebastian.ruml@gmail.com" }]
+dependencies = [
+    "django>=4.2",
+    "split-settings>=1.0.0",
+    "python-decouple>=3.8",
+    "django-crispy-forms>=2.0",
+    "django-allauth>=0.54.0",
+    "crispy-tailwind>=0.5.0",
+    "django-debug-toolbar>=4.0.0",
+    "django-extra-checks>=0.13.3",
+    "django-querycount>=0.8.3",
+    "django-csp>=3.7",
+    "django-widget-tweaks>=1.4.12",
+    "setuptools>=67.8.0",
+    "psycopg2-binary>=2.9.6",
+    "django-extensions>=3.2.3",
+    "django-stubs>=4.2.7",
+    "django-stubs-ext>=4.2.7",
+]
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.pdm.dev-dependencies]
+dev = ["black>=23.3.0", "mypy>=1.4.1"]
+
+[tool.pdm]
+package-type = "library"
+
+[tool.pdm.scripts]
+migrate = "python manage.py migrate"
+start = "python manage.py runserver"
+post_init = { composite = ["pdm install", "migrate", "start"] }
+
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

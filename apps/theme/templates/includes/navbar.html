@@ -1,0 +1,30 @@
+{% load utils %}
+
+<header>
+  <div class="w-full bg-base-200 shadow-md">
+    <div class="navbar max-w-screen-lg mx-auto">
+      <div class="flex-1">
+        <a class="btn btn-ghost uppercase text-xl underline" href="{% url 'main:index' %}">django-htmx</a>
+      </div>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+          {% if user.is_authenticated %}
+          <li><a class="{% get_active_class 'tasks:task-list' %}" href="{% url 'tasks:task-list' %}">Tasks</a></li>
+          <li><a class="{% get_active_class 'main:about' %}" href="{% url 'main:about' %}">About</a></li>
+          {% if user.is_superuser %}
+            <li data="disable-htmx"><a target="_blank" href="{% url 'admin:index' %}">Admin</a></li>
+          {% endif %}
+          <li>
+            <form method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              <button type="submit" href="{% url 'account_logout' %}" hx-confirm="Are you sure to logout?">Logout</button>
+            </form>
+          </li>
+          {% else %}
+          <li><a class="{% get_active_class 'account_login' %}" href="{% url 'account_login' %}">Login</a></li>
+          <li><a class="{% get_active_class 'account_signup' %}" href="{% url 'account_signup' %}">Signup</a></li>
+          {% endif %}
+        </ul>
+    </div>
+  </div>
+</header>

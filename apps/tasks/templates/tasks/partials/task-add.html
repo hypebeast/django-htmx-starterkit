@@ -1,0 +1,11 @@
+<form
+    class="flex w-full"
+    hx-post="{% url 'tasks:task-add' %}"
+    hx-target="#task-list"
+    hx-swap="innerHTML"
+    _="on htmx:afterRequest reset() me"
+>
+    {% csrf_token %}
+    <input type="text" name="task" placeholder="Add your task here!" class="input input-bordered w-full mr-4" required/>
+    <button class="btn flex-no-shrink" type="submit">Add</button>
+</form>

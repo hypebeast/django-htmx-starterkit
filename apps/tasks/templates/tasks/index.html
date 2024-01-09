@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="min-h-screen mx-auto">
+        <h1 class="text-3xl font-bold text-center">Tasks</h1>
+        <div class="mt-8">
+            {% include 'tasks/components/task-add.html' %}
+        </div>
+        <div id="task-list" class="my-5">
+            {% include 'tasks/components/task-list.html' %}
+        </div>
+    </div>
+    
+{% endblock content %}

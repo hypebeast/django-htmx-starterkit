@@ -1,0 +1,22 @@
+# === Django ===
+
+# Generate yours with:
+# python3 -c 'from django.utils.crypto import get_random_string; print(get_random_string(50))'
+DJANGO_SECRET_KEY=i2ECvnyMjeisi8tCXK64aJUN8PrzpaVkolvMn9Nri935zdJSK8
+
+DOMAIN_NAME=taskapp.local
+
+# === Database ===
+
+# These variables are special, since they are consumed
+# by both django and postgres docker image.
+# Cannot be renamed if you use postgres in docker.
+# See: https://hub.docker.com/_/postgres
+
+POSTGRES_DB=djangohtmx
+POSTGRES_USER=djangohtmx
+POSTGRES_PASSWORD=djangohtmx
+
+# Used only by django:
+DJANGO_DATABASE_HOST=postgres
+DJANGO_DATABASE_PORT=5432

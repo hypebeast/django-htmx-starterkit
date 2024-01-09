@@ -1,0 +1,9 @@
+{% extends "base_error.html" %}
+
+{% block title %}Forbidden (403){% endblock %}
+
+{% block content %}
+<h1 class="text-4xl font-bold">Forbidden (403)</h1>
+
+<p>{% if exception %}{{ exception }}{% else %}You're not allowed to access this page.{% endif %}</p>
+{% endblock content %}

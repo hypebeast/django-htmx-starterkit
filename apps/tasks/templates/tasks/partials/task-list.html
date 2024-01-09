@@ -1,0 +1,7 @@
+<div>
+    {% for task in tasks %}
+        {% include "tasks/components/task-detail.html" with task=task %}
+    {% empty %}
+        <div>No tasks yet.</div>
+    {% endfor %}
+</div>

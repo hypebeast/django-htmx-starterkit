@@ -1,0 +1,6 @@
+.venv
+theme/node_modules
+.git/
+.cache/
+.pytest_cache/
+.tox/

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="min-h-screen w-full">
+  <div class="max-w-lg flex flex-col bg-gray-100 mx-auto py-4 px-8 shadow-sm">
+    <h1 class="mb-8 text-3xl font-semibold text-center">Sign up</h1>
+    <form method="POST" action="{% url 'account_signup' %}" class="flex flex-col">
+      {% csrf_token %}
+
+      {% comment %} {% include "account/_non_field_errors.html" %} {% endcomment %}
+
+      {% for field in form.visible_fields %}
+        <div class="mt-4 flex flex-col">
+          {% if field.name != "remember" %}
+            {{ field|add_label_class:"label label-text" }}
+
+            {% if field.errors %}
+              {% render_field field class="input input-bordered input-error w-full" %}
+            {% else %}
+              {% render_field field class="input input-bordered w-full" %}
+            {% endif %}
+          {% endif %}
+      
+          {% for error in field.errors %}
+            <span class="flex items-center max-w-xs mt-1 ml-1 text-xs font-medium tracking-wide text-red-500">
+              {{ error }}
+            </span>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      <div class="flex justify-center mt-4 text-sm">
+        <a class="text-primary hover:text-primary-focus" href="{% url 'account_login' %}">Login</a>
+      </div>
+
+      <button class="btn btn-primary mt-8">Register</button>
+
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
