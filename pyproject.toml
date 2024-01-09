@@ -25,7 +25,11 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 
 [tool.pdm.dev-dependencies]
-dev = ["black>=23.3.0", "mypy>=1.4.1"]
+dev = [
+    "black>=23.3.0",
+    "mypy>=1.4.1",
+    "ruff>=0.1.11",
+]
 
 [tool.pdm]
 package-type = "library"

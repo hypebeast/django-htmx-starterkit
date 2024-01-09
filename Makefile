@@ -36,16 +36,20 @@ install: ## Installs all packages
 clean: ## Clean up
 	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
 
-# test:
-#     pytest -n 4 -x
+test:
+	pytest -n 4 -x
 
-lint: ## Run linters
-	# pdm run prospector
-	pdm run mypy
+.PHONY: lint
+lint: ## Run linter
+	pdm run ruff check .
+
+.PHONY: lint-fix
+lint-fix: ## Fix found linter errors
+	pdm run ruff check --fix .
 
 .PHONY: format
 format: ## Format the code with ruff
-	pdm run black -l 120 accounts config core main tasks theme
+	pdm run ruff format .
 
 clean-lint: format lint
 

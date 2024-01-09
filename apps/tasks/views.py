@@ -21,7 +21,7 @@ def get_task_or_404(id, user):
     try:
         obj = Task.objects.get(id=id, user=user)
         return obj
-    except:
+    except Exception:
         raise Http404
 
 

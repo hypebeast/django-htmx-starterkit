@@ -48,9 +48,7 @@ _COLLECTSTATIC_DRYRUN = config(
 # Adding STATIC_ROOT to collect static files via 'collectstatic':
 STATIC_ROOT = ".static" if _COLLECTSTATIC_DRYRUN else "/var/www/django/static"
 
-STATICFILES_STORAGE = (
-    "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-)
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 # Media files

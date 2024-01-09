@@ -1,7 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Field, Layout, Row
 from django import forms
-from django.utils.text import slugify
 
 from apps.tasks.models import Task
 

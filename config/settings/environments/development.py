@@ -10,7 +10,6 @@ from config.settings.components.common import (
     INSTALLED_APPS,
     MIDDLEWARE,
 )
-from config.settings.components.databases import DATABASES
 
 # Setting the development status:
 
@@ -61,7 +60,10 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#configure-internal-ips
 try:  # This might fail on some OS
-    INTERNAL_IPS = ["{0}.1".format(ip[: ip.rfind(".")]) for ip in socket.gethostbyname_ex(socket.gethostname())[2]]
+    INTERNAL_IPS = [
+        "{0}.1".format(ip[: ip.rfind(".")])
+        for ip in socket.gethostbyname_ex(socket.gethostname())[2]
+    ]
 except socket.error:  # pragma: no cover
     INTERNAL_IPS = []
 INTERNAL_IPS += ["127.0.0.1", "10.0.2.2"]
@@ -149,14 +151,10 @@ DATABASES = {
         "PASSWORD": config("POSTGRES_PASSWORD"),
         "HOST": config("DJANGO_DATABASE_HOST"),
         "PORT": config("DJANGO_DATABASE_PORT", cast=int),
-        "CONN_MAX_AGE": config("CONN_MAX_AGE", cast=int, default=60),
+        "CONN_MAX_AGE": config("CONN_MAX_AGE", cast=int, default=0),
         "OPTIONS": {
             "connect_timeout": 10,
             "options": "-c statement_timeout=15000ms",
         },
     },
 }
-
-# Disable persistent DB connections
-# https://docs.djangoproject.com/en/3.2/ref/databases/#caveats
-DATABASES["default"]["CONN_MAX_AGE"] = 0
